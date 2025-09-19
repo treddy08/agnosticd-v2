@@ -33,6 +33,21 @@
   retries: 5
   delay: 10
 
+- name: Add A DNS record - api-int (Route53)
+  amazon.aws.route53:
+    state: present
+    aws_access_key_id: "{{ route53_aws_access_key_id }}"
+    aws_secret_access_key: "{{ route53_aws_secret_access_key }}"
+    hosted_zone_id: "{{ route53_aws_zone_id }}"
+    record: "api-int.{{ cluster_name}}.{{ cluster_dns_zone }}"
+    zone: "{{ cluster_dns_zone  }}"
+    value: "{{ ai_network_prefix }}.100"
+    type: A
+  register: r_route53_add_record
+  until: r_route53_add_record is success
+  retries: 10
+  delay: 30
+
 - name: Add the service (type LoadBalancer) for full clusters - workers
   vars:
     svcname: "{{ ai_ocp_vmname_worker_prefix }}-svc"
