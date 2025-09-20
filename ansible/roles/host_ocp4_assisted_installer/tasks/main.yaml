@@ -49,7 +49,7 @@
       validate_certs: false
   block:
   - name: Configure a SNO cluster
-    when: worker_instance_count | int == 0
+    when: control_plane_instance_count | int == 1
     ansible.builtin.include_tasks: configure_sno_cluster.yml
 
   - name: Configure a full cluster
