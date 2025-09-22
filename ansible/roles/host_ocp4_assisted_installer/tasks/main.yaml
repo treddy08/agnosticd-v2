@@ -83,7 +83,7 @@
       - cidr: "{{ ai_cluster_network_cidr }}"
         host_prefix: 23
       api_vips:
-      - ip: "{{ ai_network_prefix }}.100"
+      - ip: "{{ ai_network_prefix + '.100' if control_plane_instance_count | int > 1 else ai_network_prefix + '.10' }} "
       ingress_vips:
       - ip: "{{ ai_network_prefix }}.101"
     register: newcluster
