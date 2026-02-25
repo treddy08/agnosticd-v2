@@ -121,6 +121,7 @@
         bastion_public_hostname: "{{ _bastion_public_hostname }}"
         bastion_ssh_password: "{{ _bastion_student_user_password }}"
         bastion_ssh_user_name: "{{ bastion_student_user_name }}"
+        bastion_ssh_pubkey_content: "{{ bastion_ssh_pubkey_content }}"
 
   - name: Set bastion port for CNV
     when: cloud_provider == "openshift_cnv"
